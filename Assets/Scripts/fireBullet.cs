@@ -25,10 +25,9 @@ public class fireBullet : MonoBehaviour
 
 		if(Input.GetMouseButtonDown(0))
 		{
-
 			/*How to access another scripts variable*/
 			GameObject player = GameObject.Find ("Green");
-			PlayerMovement moveScript = player.GetComponent<PlayerMovement>();
+			characterMovement moveScript = player.GetComponent<characterMovement>();
 
 
 			GameObject Temp_Bullet;
@@ -40,11 +39,11 @@ public class fireBullet : MonoBehaviour
 			Temp_Rigid = Temp_Bullet.GetComponent<Rigidbody2D>();
 			 
 
-			if(moveScript.faceRight == true)
+			if(moveScript.faceRight == false)
 			{
 				Temp_Rigid.AddForce (transform.right * Bullet_Force);
 			}
-			else if(moveScript.faceRight == false)
+			else if(moveScript.faceRight == true)
 			{
 				Temp_Rigid.AddForce (transform.right * -1 * Bullet_Force);
 			}

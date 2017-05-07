@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
 	public bool faceRight;
-	public int movementspeed = 100;
+	public int movementSpeed = 100;
 	public Vector3 ScaleInX;
 	private Animator animator;
+
+	private characterMovement characterMovementObject; 
 
 
 	// Use this for initialization
@@ -17,51 +19,33 @@ public class PlayerMovement : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		animator.ResetTrigger ("isMove");
 		animator.SetTrigger ("NotMove");
+		characterMovementObject = GetComponent <characterMovement> ();
 
 	}
 
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-		animator.ResetTrigger ("isMove");
-		animator.SetTrigger ("NotMove");
+
+		if (Input.GetKey (KeyCode.W))
+		{
+			characterMovementObject.jump ();
+		}
 
 		//GetComponent<Animator> ().speed = 800;
 		if (Input.GetKey (KeyCode.A))
 		{	
-			animator.ResetTrigger ("NotMove");
-			animator.SetTrigger ("isMove");
-			if (faceRight == true)
-			{
-				Vector3 ScaleInX = transform.localScale;
-				ScaleInX.x *= -1;
-				transform.localScale = ScaleInX;
-				faceRight = false;
-			}
-			transform.Translate (Vector3.left * movementspeed * Time.deltaTime);
+			characterMovementObject.moveInX (-1);
+		}
+			
+		else if(Input.GetKey (KeyCode.D))
+		{	
+			characterMovementObject.moveInX (1);
 		}
 
-
-		if(Input.GetKey (KeyCode.D))
-		{		
-			animator.SetTrigger ("isMove");
-			animator.ResetTrigger ("NotMove");
-			if (faceRight == false)
-			{
-				Vector3 ScaleInX = transform.localScale;
-				ScaleInX.x *= -1;
-				transform.localScale = ScaleInX;
-				faceRight = true;
-			}
-			transform.Translate (Vector3.right * movementspeed * Time.deltaTime);
-
-		}
-
-
-		if (Input.GetKey (KeyCode.W))
+		else
 		{
-			animator.SetTrigger ("isAir");
-			transform.Translate (Vector3.up  * movementspeed * Time.deltaTime);
+			characterMovementObject.Idle ();
 		}
 
 
