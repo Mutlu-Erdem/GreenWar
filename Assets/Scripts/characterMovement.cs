@@ -26,8 +26,8 @@ public class characterMovement : MonoBehaviour {
 
 	public void moveInX(int setXDirection)
 	{
-		animator.ResetTrigger ("NotMove");
-		animator.SetTrigger ("isMove");
+		
+		animator.SetBool ("isWalking",true);
 
 		if (faceRight == false && setXDirection < 0)
 		{
@@ -50,10 +50,10 @@ public class characterMovement : MonoBehaviour {
 
 	public void Idle()
 	{
-		animator.ResetTrigger ("isMove");
-		animator.SetTrigger ("NotMove");
+		animator.SetBool ("isWalking",false);
 	}
-		
+
+
 	private void scaleRight (bool facePosition)
 	{
 		Vector3 ScaleInX = transform.localScale;

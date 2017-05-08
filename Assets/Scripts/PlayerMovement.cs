@@ -17,8 +17,6 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		faceRight = true;
 		animator = GetComponent<Animator>();
-		animator.ResetTrigger ("isMove");
-		animator.SetTrigger ("NotMove");
 		characterMovementObject = GetComponent <characterMovement> ();
 
 	}
