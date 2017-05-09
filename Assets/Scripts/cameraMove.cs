@@ -15,7 +15,7 @@ public class cameraMove : MonoBehaviour
 	// Follow player within limited X and Y axises.
 	void FixedUpdate ()
 	{
-		transform.position = new Vector3 (tracker.transform.position.x, Mathf.Clamp(tracker.transform.position.y, -401, 8), transform.position.z);
+		transform.position = new Vector3 (Mathf.Clamp(tracker.transform.position.x, -401, 8), Mathf.Clamp(tracker.transform.position.y, -80, -50), transform.position.z);
 		print ("camera position: " + transform.position.ToString ());
 
 		//transform.position = new Vector3 (tracker.transform.position.x, Mathf.Clamp(tracker.transform.position.y, -401, 8), tracker.transform.position.z);
