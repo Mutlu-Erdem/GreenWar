@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour{
 
+    public bool IsControlledByAI = true;
     public Gun gun;
     public int MaxHealth = 30;
 
@@ -14,11 +15,7 @@ public class Character : MonoBehaviour{
     void Start(){
         //Gun = GetComponentInChildren<>()
         _currentHealth = MaxHealth;
-    }
-
-    // Update is called once per frame
-    void Update(){
-
+        CreateControllerComponent();
     }
 
     public void PullTrigger(){
@@ -37,6 +34,15 @@ public class Character : MonoBehaviour{
         _currentHealth -= damageToApply;
         if (_currentHealth <= 0) {
             Destroy(gameObject);
+        }
+    }
+
+    private void CreateControllerComponent(){
+        if (IsControlledByAI) {
+            gameObject.AddComponent<AIController>();
+        }
+        else {
+            gameObject.AddComponent<PlayerController>();
         }
     }
 }
