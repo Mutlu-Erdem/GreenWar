@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class characterMovement : MonoBehaviour {
 
+	// Constructors
 	public bool faceRight = true;
 	public Vector3 ScaleInX;
 	private Animator animator;
@@ -18,12 +19,15 @@ public class characterMovement : MonoBehaviour {
 
 	}
 
+	//Spawn
 	public void spawnConditions(bool faceRightToSet, int movementSpeedtoSet)
 	{
 		this.faceRight = faceRightToSet;
 		this.movementSpeed = movementSpeedtoSet;
 	}
 
+
+	//Movement in X direction
 	public void moveInX(int setXDirection)
 	{
 		
@@ -42,18 +46,22 @@ public class characterMovement : MonoBehaviour {
 		transform.Translate (new Vector3(setXDirection * movementSpeed * Time.deltaTime,0,0));
 	}
 
+
+	//Movement in X direction
 	public void jump()
 	{
 		animator.SetTrigger ("isAir");
 		transform.Translate (Vector3.up  * movementSpeed * Time.deltaTime);
 	}
 
+	// Character Idle
 	public void Idle()
 	{
 		animator.SetBool ("isWalking",false);
 	}
 
 
+	//Scale character in Right
 	private void scaleRight (bool facePosition)
 	{
 		Vector3 ScaleInX = transform.localScale;

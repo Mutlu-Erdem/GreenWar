@@ -7,7 +7,6 @@ public class fireBullet : MonoBehaviour
 
 	public GameObject Bullet_Emitter;
 	public GameObject Bullet;
-
 	public float Bullet_Force;
 
 
