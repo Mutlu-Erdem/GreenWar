@@ -1,73 +1,84 @@
 ﻿using UnityEngine;
 
 namespace Assets._Scripts{
-    public class CharacterMovement : MonoBehaviour {
+    public class CharacterMovement : MonoBehaviour{
 
         // Constructors
         public bool faceRight = true;
         public Vector3 ScaleInX;
         public int movementSpeed = 100;
+        public float jumpSpeed = 10;
 
         private Animator _animator;
+        private Rigidbody2D _rigidbody;
+        private bool _isOnAir;
 
         // Use this for initialization
-        void Start ()
-        {
+        void Start(){
             _animator = GetComponent<Animator>();
-            _animator.ResetTrigger ("isMove");
-            _animator.SetTrigger ("NotMove");
-
+            _animator.ResetTrigger("isMove");
+            _animator.SetTrigger("NotMove");
+            _rigidbody = GetComponent<Rigidbody2D>();
         }
 
         //Spawn
-        public void SpawnConditions(bool faceRightToSet, int movementSpeedtoSet)
-        {
+        public void SpawnConditions(bool faceRightToSet, int movementSpeedtoSet){
             this.faceRight = faceRightToSet;
             this.movementSpeed = movementSpeedtoSet;
         }
 
 
         //Movement in X direction
-        public void MoveInX(int setXDirection)
-        {
-		
-            _animator.SetBool ("isWalking",true);
+        public void MoveInX(int setXDirection){
 
-            if (faceRight == false && setXDirection < 0)
-            {
-                ScaleRight (true);
+            _animator.SetBool("isWalking", true);
+
+            if (faceRight == false && setXDirection < 0) {
+                ScaleRight(true);
             }
 
-            else if (faceRight == true && setXDirection > 0)
-            {
-                ScaleRight (false);
+            else if (faceRight == true && setXDirection > 0) {
+                ScaleRight(false);
             }
 
-            transform.Translate (new Vector3(setXDirection * movementSpeed * Time.deltaTime,0,0));
+            if (!_isOnAir) {
+                _rigidbody.velocity = new Vector2(setXDirection * movementSpeed * Time.deltaTime, 0);
+            }
+            
         }
 
+        public void StopMoving(){
+            if (!_isOnAir) {
+                _rigidbody.velocity = new Vector2(0, 0);
+            }
+            
+        }
 
-        //Movement in X direction
-        public void Jump()
-        {
-            _animator.SetTrigger ("isAir");
-            transform.Translate (Vector3.up  * movementSpeed * Time.deltaTime);
+        //Movement Y direction.
+        public void Jump(){
+            _animator.SetTrigger("isAir");
+            if (!_isOnAir) {
+                _rigidbody.velocity = new Vector2(0, jumpSpeed * Time.deltaTime);
+                _isOnAir = true;
+                print("Jumping");
+            }
         }
 
         // Character Idle
-        public void Idle()
-        {
-            _animator.SetBool ("isWalking",false);
+        public void Idle(){
+            _animator.SetBool("isWalking", false);
         }
 
-
         //Scale character in Right
-        private void ScaleRight (bool facePosition)
-        {
+        private void ScaleRight(bool facePosition){
             Vector3 ScaleInX = transform.localScale;
             ScaleInX.x *= -1;
             transform.localScale = ScaleInX;
             faceRight = facePosition;
+        }
+
+        public void SetCharacterOnGround(bool b){
+            _isOnAir = false;
         }
     }
 }

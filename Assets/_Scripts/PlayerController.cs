@@ -20,7 +20,6 @@ namespace Assets._Scripts{
             if (Input.GetKey(KeyCode.W)) {
                 _characterMovementObject.Jump();
             }
-        
             else if (Input.GetKey(KeyCode.A)) {
                 _characterMovementObject.MoveInX(-1);
             }
@@ -28,13 +27,18 @@ namespace Assets._Scripts{
             else if (Input.GetKey(KeyCode.D)) {
                 _characterMovementObject.MoveInX(1);
             }
+            else {
+                _characterMovementObject.StopMoving();
+            }
+
             if (Input.GetMouseButtonDown(0)) {
                 _character.PullTrigger();
             }
 
         }
 
-        void OnCollisionEnter2D(Collision2D coll){ //TODO delete this method.
+        void OnCollisionEnter2D(Collision2D coll){
+            //TODO delete this method.
 
             if (coll.transform.tag == "movingPlatform") {
                 //onPlatform.transform.
@@ -42,7 +46,8 @@ namespace Assets._Scripts{
             }
         }
 
-        void OnCollisionExit2D(Collision2D coll){   //TODO delete this method.
+        void OnCollisionExit2D(Collision2D coll){
+            //TODO delete this method.
 
             if (coll.transform.tag == "movingPlatform") {
                 //onPlatform.transform.
