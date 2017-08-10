@@ -3,7 +3,7 @@
 namespace Assets._Scripts{
     public class Ground : MonoBehaviour {
 
-        // Use this for initialization
+        // Use this for initializationsadasd
         void Start () {
 		
         }
