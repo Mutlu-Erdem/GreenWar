@@ -9,8 +9,6 @@ public class fireBullet : MonoBehaviour
 	public GameObject Bullet;
 	public float Bullet_Force;
 
-
-
 	// Use this for initialization
 	void Start ()
 	{

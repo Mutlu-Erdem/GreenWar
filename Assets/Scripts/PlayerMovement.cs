@@ -68,7 +68,5 @@ public class PlayerMovement : MonoBehaviour {
 			transform.parent = null;
 		}
 	}
-
-
-
+		
 }
