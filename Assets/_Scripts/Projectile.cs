@@ -1,25 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+namespace Assets._Scripts{
+    public class Projectile : MonoBehaviour{
 
-public class Projectile : MonoBehaviour{
+        public GameObject myBox;
+        public BoxCollider2D boxCollider;
 
-    public GameObject myBox;
-    public BoxCollider2D boxCollider;
-
-    // Find gameObject and initialize it.
-    void Start(){
-        //myBox = GameObject.Find ("Box");
-    }
-
-
-    //Destroy object itself in every collision
-    void OnCollisionEnter2D(Collision2D coll){
-
-        if (coll.collider == true) {
-            Destroy(this.gameObject);
+        // Find gameObject and initialize it.
+        void Start(){
+            //myBox = GameObject.Find ("Box");
         }
 
+
+        //Destroy object itself in every collision
+        void OnCollisionEnter2D(Collision2D coll){
+
+            if (coll.collider == true) {
+                Destroy(this.gameObject);
+            }
+
+        }
     }
 }
