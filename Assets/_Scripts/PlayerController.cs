@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour{
 
     private CharacterMovement _characterMovementObject;
-
+    private Character _character;
 
     // Use this for initialization
     void Start(){
         _characterMovementObject = GetComponent<CharacterMovement>();
+        _character = GetComponent<Character>();
         print(_characterMovementObject);
 
     }
@@ -21,13 +22,17 @@ public class PlayerController : MonoBehaviour{
             _characterMovementObject.Jump();
         }
         
-        if (Input.GetKey(KeyCode.A)) {
+        else if (Input.GetKey(KeyCode.A)) {
             _characterMovementObject.MoveInX(-1);
         }
 
         else if (Input.GetKey(KeyCode.D)) {
             _characterMovementObject.MoveInX(1);
         }
+        if (Input.GetMouseButtonDown(0)) {
+            _character.PullTrigger();
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D coll){ //TODO delete this method.
