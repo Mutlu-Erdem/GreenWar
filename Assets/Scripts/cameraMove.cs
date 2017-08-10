@@ -19,8 +19,6 @@ public class cameraMove : MonoBehaviour
 
 		/* Debug for main camera position !!! NOT TRACER /*
 		//print ("camera position: " + transform.position.ToString ());
-
-		/* HAVE ABSOULTE NO IDEA WHAT DA FAK IS THAT */
-		//transform.position = new Vector3 (tracker.transform.position.x, Mathf.Clamp(tracker.transform.position.y, -401, 8), tracker.transform.position.z);
+		*/
 	}
 }
