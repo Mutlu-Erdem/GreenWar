@@ -20,9 +20,11 @@ namespace Assets._Scripts{
 
             GameObject Temp_Bullet;
             Temp_Bullet =
-                Instantiate(Bullet, Bullet_Emitter.transform.position, Bullet_Emitter.transform.rotation) as GameObject;
+				Instantiate(Bullet, Bullet_Emitter.transform.position, Bullet_Emitter.transform.rotation) as GameObject;
 
-            Temp_Bullet.transform.Rotate(Vector3.left * 90);
+			//Temp_Bullet.transform.Rotate(Vector3.left);
+
+
 
             Rigidbody2D Temp_Rigid;
             Temp_Rigid = Temp_Bullet.GetComponent<Rigidbody2D>();
