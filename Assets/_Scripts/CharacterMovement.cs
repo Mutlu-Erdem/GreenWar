@@ -1,90 +1,98 @@
 ﻿using UnityEngine;
 
-namespace Assets._Scripts{
-    public class CharacterMovement : MonoBehaviour{
+namespace Assets._Scripts {
+    public class CharacterMovement : MonoBehaviour {
+
+        public enum CharacterState {ONAIR,MOVING,STOPED,ONGROUND}
 
         // Constructors
         public bool faceRight = true;
         public Vector3 ScaleInX;
-        public int movementSpeed = 100;
+        public int maxMovementSpeed = 60;   
+        public float acceleration = 5;
         public float jumpSpeed = 10;
+        public float jumpBlockingSpeed = 30;
 
         private Animator _animator;
         private Rigidbody2D _rigidbody;
         private bool _isOnAir;
 
+        private CharacterState _state;
+
         // Use this for initialization
-        void Start(){
+        void Start() {
             _animator = GetComponent<Animator>();
             _animator.ResetTrigger("isMove");
             _animator.SetTrigger("NotMove");
             _rigidbody = GetComponent<Rigidbody2D>();
+            _state = CharacterState.STOPED;
         }
 
-        //Spawn
-        public void SpawnConditions(bool faceRightToSet, int movementSpeedtoSet){
-            this.faceRight = faceRightToSet;
-            this.movementSpeed = movementSpeedtoSet;
-        }
 
 
         //Movement in X direction
-        public void MoveInX(int setXDirection){
+        public void MoveInX(int setXDirection) {
 
-            _animator.SetBool("isWalking", true);
+           
 
-            if (faceRight == false && setXDirection < 0) {
-                ScaleRight(true);
+            if (_state == CharacterState.ONGROUND) {
+                if (_rigidbody.velocity.x < maxMovementSpeed && _rigidbody.velocity.x > -maxMovementSpeed) {
+                    _rigidbody.velocity += new Vector2(setXDirection * acceleration, 0);
+                }
+                _animator.SetBool("isWalking", true);
+
+                if (faceRight == false && setXDirection < 0) {
+                    ScaleRight(true);
+                } else if (faceRight == true && setXDirection > 0) {
+                    ScaleRight(false);
+                }
+            } else if (_state == CharacterState.ONAIR) {
+                if (_rigidbody.velocity.x > 0 && setXDirection < 0) {
+                    _rigidbody.velocity = Vector2.zero;
+                } else if (_rigidbody.velocity.x < 0 && setXDirection > 0) {
+                    _rigidbody.velocity = Vector2.zero;
+                }
             }
 
-            else if (faceRight == true && setXDirection > 0) {
-                ScaleRight(false);
-            }
-
-            if (!_isOnAir) {
-                _rigidbody.velocity = new Vector2(setXDirection * movementSpeed * Time.deltaTime, 0);
-            }
-            
         }
-
-        public void StopMoving(){
-            if (!_isOnAir) {
-                _rigidbody.velocity = new Vector2(0, 0);
-            }
-            
-        }
-
-
-		public bool getIsonAir (){
-			return _isOnAir;
-		}
-
 
         //Movement Y direction.
-        public void Jump(){
-            _animator.SetTrigger("isAir");
-            if (!_isOnAir) {
-				_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpSpeed * Time.deltaTime);
-                _isOnAir = true;
-                print("Jumping");
+        public void Jump() {
+            if (_state == CharacterState.ONGROUND) {
+                _animator.SetTrigger("isAir");
+
+                if (_rigidbody.velocity.x > 0) {
+                    _rigidbody.velocity += new Vector2(-jumpBlockingSpeed, jumpSpeed);
+                } else if(_rigidbody.velocity.x < 0) {
+                    _rigidbody.velocity += new Vector2(jumpBlockingSpeed, jumpSpeed);
+                }
+                
+                _state = CharacterState.ONAIR;
             }
         }
 
-        // Character Idle
-        public void Idle(){
-            _animator.SetBool("isWalking", false);
+        public void StopMoving() {
+            if (_state == CharacterState.ONGROUND) {
+                _rigidbody.velocity = Vector2.zero;
+                
+            }
         }
 
         //Scale character in Right
-        private void ScaleRight(bool facePosition){
+        private void ScaleRight(bool facePosition) {
             Vector3 ScaleInX = transform.localScale;
             ScaleInX.x *= -1;
             transform.localScale = ScaleInX;
             faceRight = facePosition;
         }
 
-        public void SetCharacterOnGround(bool b){
-            _isOnAir = false;
+        public void SetCharacterState(CharacterState stateToSet) {
+            _state = stateToSet;
+        }
+       //Spawn
+        public void SpawnConditions(bool faceRightToSet, int movementSpeedtoSet) {
+            this.faceRight = faceRightToSet;
+            this.maxMovementSpeed = movementSpeedtoSet;
         }
     }
 }

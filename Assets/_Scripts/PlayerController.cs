@@ -17,22 +17,20 @@ namespace Assets._Scripts{
         // Update is called once per frame
         void Update(){
 
-			print (_characterMovementObject.getIsonAir ());
+            if (Input.GetKey(KeyCode.A)) {
+                _characterMovementObject.MoveInX(-1);
+            }else if (Input.GetKey(KeyCode.D)) {
+                _characterMovementObject.MoveInX(1);
+            } else if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
+                _characterMovementObject.StopMoving();
+            } else {
+                _characterMovementObject.StopMoving();
+            }
+
 
             if (Input.GetKey(KeyCode.W)) {
                 _characterMovementObject.Jump();
             }
-            else if (Input.GetKey(KeyCode.A)) {
-                _characterMovementObject.MoveInX(-1);
-            }
-
-            else if (Input.GetKey(KeyCode.D)) {
-                _characterMovementObject.MoveInX(1);
-            }
-            else {
-                _characterMovementObject.StopMoving();
-            }
-
             if (Input.GetMouseButtonDown(0)) {
                 _character.PullTrigger();
             }

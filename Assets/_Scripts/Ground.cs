@@ -17,7 +17,16 @@ namespace Assets._Scripts{
 
             CharacterMovement characterMovement = collision.transform.GetComponent<CharacterMovement>();
             if (characterMovement) {
-                characterMovement.SetCharacterOnGround(true);
+                characterMovement.SetCharacterState(CharacterMovement.CharacterState.ONGROUND);
+                
+            }
+        }
+
+
+        void OnCollisionExit2D(Collision2D collision) {
+            CharacterMovement characterMovement = collision.transform.GetComponent<CharacterMovement>();
+            if (characterMovement) {
+                characterMovement.SetCharacterState(CharacterMovement.CharacterState.ONAIR);
                 
             }
         }
