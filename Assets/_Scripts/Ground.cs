@@ -18,7 +18,7 @@ namespace Assets._Scripts{
             CharacterMovement characterMovement = collision.transform.GetComponent<CharacterMovement>();
             if (characterMovement) {
                 characterMovement.SetCharacterOnGround(true);
-                print("character is not on air anymore.");
+                
             }
         }
 

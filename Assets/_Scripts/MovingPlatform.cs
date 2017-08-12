@@ -48,12 +48,12 @@ namespace Assets._Scripts{
             }
 
             if (transform.position.x - _startingLocationX > distanceX) {
-                print("asdasd");
+                
                 _isgoingLeft = true;
             }
 
             if (transform.position.x - _startingLocationX < -distanceX) {
-                print("-----dasdasd");
+                
                 _isgoingLeft = false;
             }
         }
@@ -67,12 +67,12 @@ namespace Assets._Scripts{
             }
 
             if (transform.position.y - _startingLocationY > distanceY) {
-                print("asdasd");
+                
                 _isgoingLeft = true;
             }
 
             if (transform.position.y - _startingLocationY < -distanceY) {
-                print("-----dasdasd");
+                
                 _isgoingLeft = false;
             }
         }

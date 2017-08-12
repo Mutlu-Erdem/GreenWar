@@ -54,6 +54,12 @@ namespace Assets._Scripts{
             
         }
 
+
+		public bool getIsonAir (){
+			return _isOnAir;
+		}
+
+
         //Movement Y direction.
         public void Jump(){
             _animator.SetTrigger("isAir");

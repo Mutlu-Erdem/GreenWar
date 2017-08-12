@@ -10,12 +10,14 @@ namespace Assets._Scripts{
         void Start(){
             _characterMovementObject = GetComponent<CharacterMovement>();
             _character = GetComponent<Character>();
-            print(_characterMovementObject);
+            
 
         }
 
         // Update is called once per frame
         void Update(){
+
+			print (_characterMovementObject.getIsonAir ());
 
             if (Input.GetKey(KeyCode.W)) {
                 _characterMovementObject.Jump();
