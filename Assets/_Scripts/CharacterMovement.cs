@@ -58,7 +58,7 @@ namespace Assets._Scripts{
         public void Jump(){
             _animator.SetTrigger("isAir");
             if (!_isOnAir) {
-                _rigidbody.velocity = new Vector2(0, jumpSpeed * Time.deltaTime);
+				_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpSpeed * Time.deltaTime);
                 _isOnAir = true;
                 print("Jumping");
             }
